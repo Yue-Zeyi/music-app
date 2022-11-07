@@ -1,24 +1,52 @@
 <template>
+  <div class="topNav">
+    <div class="topleft">
+      <svg class="icon" aria-hidden="true" @click="$router.push('/')">
+        <use xlink:href="#icon-zhuye"></use>
+      </svg>
+    </div>
+
+    <div class="topright">
+      <svg class="icon" aria-hidden="true" @click="toback">
+        <use xlink:href="#icon-tuichu1"></use>
+      </svg>
+    </div>
+  </div>
+
   <div class="userInfo">
-    <img :src="user.data.profile.avatarUrl" alt="" class="avatarUrl" />
-    <div class="name">{{ user.data.profile.nickname }}</div>
+    <img :src="this.user.data.profile.avatarUrl" alt="" class="avatarUrl" />
+    <div class="name">{{ this.user.data.profile.nickname }}</div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
-  computed: {
-    ...mapState(['user']),
+  created() {
+    this.user = JSON.parse(sessionStorage.getItem('user'));
+    // console.log(this.user);
   },
-  mounted() {
-    console.log(this.user);
+  methods: {
+    // 退出清除token和sessionStorage
+    toback: function () {
+      window.sessionStorage.clear();
+      window.localStorage.clear();
+      window.location.reload();
+    },
   },
 };
 </script>
 
+<script setup></script>
+
 <style lang="less" scoped>
+.topNav {
+  width: 100%;
+  height: 1rem;
+  padding: 0.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .userInfo {
   width: 100%;
   height: 100px;

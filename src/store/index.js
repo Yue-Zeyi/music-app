@@ -77,7 +77,8 @@ export default createStore({
     },
     getLogin: async function (context, value) {
       let res = await getPhoneLogin(value);
-      console.log(res);
+      // 将登录获取的用户信息存储到sessionStorage中，防止刷新丢失
+      sessionStorage.setItem('user', JSON.stringify(res));
       return res;
     },
   },

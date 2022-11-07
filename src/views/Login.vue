@@ -16,7 +16,12 @@
         v-model="password"
         placeholder="请输入密码"
       />
-      <van-button type="default" class="btn" @click="Login">登录</van-button>
+      <div>
+        <van-button plain type="primary" class="btn" @click="Login">账户登录</van-button>
+        <van-button plain type="success" class="btn" @click="$router.push('/')"
+          >游客预览</van-button
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -35,15 +40,15 @@ export default {
         phone: this.phone,
         password: this.password,
       });
-      console.log(res);
+      // console.log(res);
       if (res.data.code == 200) {
         //登录成功 跳转到个人中心
         this.$store.commit('updateIsLogin', true);
         this.$store.commit('updateToken', res.data.token);
         let result = await getLoginUser(res.data.account.id);
-        console.log(result);
+        // console.log(result);
         this.$store.commit('updateUser', result);
-        console.log();
+        // console.log();
         this.$router.push('/infoUser');
       } else {
         alert('手机号或者密码错误');
@@ -79,12 +84,13 @@ export default {
     .phone,
     .passworld {
       width: 5rem;
-      height: 1rem;
+
       border: 0.02rem solid #999;
     }
     .btn {
       width: 2rem;
       height: 0.6rem;
+      margin-right: 0.1rem;
     }
   }
 }
